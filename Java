@@ -1,0 +1,115 @@
+import java.io.*;
+import java.util.*;
+
+class Patron {
+    private String id;
+    private String name;
+
+    public Patron(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "ID: " + id + ", Name: " + name;
+    }
+}
+
+class Library {
+    private List<Patron> patrons = new ArrayList<>();
+
+    public void loadFromFile(String filePath) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                patrons.add(new Patron(data[0], data[1]));
+            }
+        }
+    }
+
+    public void displayPatrons() {
+        if (patrons.isEmpty()) {
+            System.out.println("No patrons to display.");
+        } else {
+            patrons.forEach(System.out::println);
+        }
+    }
+
+    public void addPatron(String id, String name) {
+        patrons.add(new Patron(id, name));
+    }
+
+    public void deletePatron(String id) {
+        patrons.removeIf(patron -> patron.getId().equals(id));
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Library library = new Library();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\nLibrary Management System");
+            System.out.println("1. Load patrons from file");
+            System.out.println("2. Display all patrons");
+            System.out.println("3. Add a new patron");
+            System.out.println("4. Delete a patron");
+            System.out.println("5. Exit");
+            System.out.print("Choose an option: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter file path: ");
+                    String filePath = scanner.nextLine();
+                    try {
+                        library.loadFromFile(filePath);
+                        System.out.println("Patrons loaded successfully.");
+                    } catch (IOException e) {
+                        System.out.println("Error loading file: " + e.getMessage());
+                    }
+                    break;
+
+                case 2:
+                    library.displayPatrons();
+                    break;
+
+                case 3:
+                    System.out.print("Enter patron ID: ");
+                    String id = scanner.nextLine();
+                    System.out.print("Enter patron name: ");
+                    String name = scanner.nextLine();
+                    library.addPatron(id, name);
+                    System.out.println("Patron added successfully.");
+                    break;
+
+                case 4:
+                    System.out.print("Enter patron ID to delete: ");
+                    String deleteId = scanner.nextLine();
+                    library.deletePatron(deleteId);
+                    System.out.println("Patron deleted successfully.");
+                    break;
+
+                case 5:
+                    System.out.println("Exiting program.");
+                    return;
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+}

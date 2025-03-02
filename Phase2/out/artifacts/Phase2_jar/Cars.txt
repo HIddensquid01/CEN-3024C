@@ -1,0 +1,20 @@
+2022,Toyota,Corolla,22000,Bluetooth Sunroof
+2021,Honda,Accord,25000,Heated Seats Navigation
+2020,Ford,Mustang,28000,Backup Camera Apple CarPlay
+2019,Chevrolet,Malibu,20000,Remote Start Lane Assist
+2018,Nissan,Altima,18000,Blind Spot Monitor Android Auto
+2017,Hyundai,Elantra,15000,Cruise Control Heated Seats
+2023,Kia,Sportage,27000,Touchscreen AWD
+2022,Subaru,Outback,32000,All Wheel Drive Roof Rack
+2021,Jeep,Wrangler,35000,Off Road Package Hard Top
+2020,Dodge,Charger,29000,Sport Mode Leather Seats
+2019,BMW,3 Series,40000,Sunroof Parking Sensors
+2018,Mercedes,C-Class,42000,Leather Interior Bluetooth
+2017,Audi,A4,38000,Virtual Cockpit Quattro
+2023,Volkswagen,Jetta,23000,Apple CarPlay Heated Steering
+2022,Mazda,CX-5,31000,Blind Spot Monitoring AWD
+2021,Lexus,RX 350,45000,Navigation Premium Audio
+2020,Acura,TLX,34000,Adaptive Cruise Heated Seats
+2019,Tesla,Model 3,48000,Autopilot Full Self-Driving
+2018,Volvo,S60,36000,Lane Keep Assist Leather Seats
+2017,Infiniti,Q50,33000,Sunroof Bose Sound System

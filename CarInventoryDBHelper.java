@@ -1,12 +1,19 @@
 import javax.swing.*;
 import java.sql.*;
 import java.util.*;
-
+/**
+ * CarInventoryDBHelper provides database operations for car inventory management.
+ * It connects to an SQLite database and provides CRUD functionality
+ * including car purchase operations with tax and discount calculations.
+ */
 public class CarInventoryDBHelper {
     private Connection connection;
 
     /**
-     * Connect to the SQLite database file
+     * Connects to the SQLite database using the specified file path.
+     *
+     * @param dbPath the path to the SQLite database file
+     * @return true if the connection is successful, false otherwise
      */
     public boolean connect(String dbPath) {
         try {
@@ -20,7 +27,7 @@ public class CarInventoryDBHelper {
     }
 
     /**
-     * Disconnect from the database
+     * Disconnect from the SQLite database
      */
     public void disconnect() {
         try {
@@ -33,7 +40,14 @@ public class CarInventoryDBHelper {
     }
 
     /**
-     * Add a new car to the database
+     * Adds a new car entry into the database.
+     *
+     * @param year the car's manufacture year
+     * @param make the car make (brand)
+     * @param model the car model
+     * @param price the car price
+     * @param features a description of the car's features
+     * @return true if the car is successfully added, false otherwise
      */
     public boolean addCar(int year, String make, String model, float price, String features) {
         String sql = "INSERT INTO cars (year, make, model, price, features) VALUES (?, ?, ?, ?, ?)";
@@ -51,7 +65,10 @@ public class CarInventoryDBHelper {
     }
 
     /**
-     * Remove a car from the database using ID
+     * Removes a car from the database using the car's ID.
+     *
+     * @param id the ID of the car to remove
+     * @return true if the car is successfully removed, false otherwise
      */
     public boolean removeCar(int id) {
         String sql = "DELETE FROM cars WHERE id = ?";
@@ -65,7 +82,12 @@ public class CarInventoryDBHelper {
     }
 
     /**
-     * Update a car's price and features using ID
+     * Updates the price and features of a car using its ID.
+     *
+     * @param id the ID of the car to update
+     * @param price the new price
+     * @param features the new features
+     * @return true if the update was successful, false otherwise
      */
     public boolean updateCar(int id, float price, String features) {
         String sql = "UPDATE cars SET price = ?, features = ? WHERE id = ?";
@@ -81,7 +103,9 @@ public class CarInventoryDBHelper {
     }
 
     /**
-     * Fetch all cars in the inventory
+     * Retrieves a list of all cars in the inventory.
+     *
+     * @return a list of formatted car descriptions
      */
     public List<String> getAllCars() {
         List<String> carList = new ArrayList<>();
@@ -99,7 +123,10 @@ public class CarInventoryDBHelper {
     }
 
     /**
-     * Mark a car as sold using ID
+     * Marks a car as sold in the database using its ID.
+     *
+     * @param id the ID of the car to mark as sold
+     * @return true if the update was successful, false otherwise
      */
     public boolean markCarAsSold(int id) {
         String sql = "UPDATE cars SET status = 'Sold' WHERE id = ?";
@@ -113,7 +140,10 @@ public class CarInventoryDBHelper {
     }
 
     /**
-     * Calculate final price and optionally mark as sold
+     * Processes the purchase of a car: calculates total price with tax and discount,
+     * prompts user for confirmation, and updates the status to 'Sold' if confirmed.
+     *
+     * @param id the ID of the car to purchase
      */
     public void processCarPurchase(int id) {
         String sql = "SELECT price FROM cars WHERE id = ? AND status != 'Sold'";

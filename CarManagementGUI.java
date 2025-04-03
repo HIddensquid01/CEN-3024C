@@ -15,7 +15,7 @@ public class CarManagementGUI {
     private JTextArea outputArea; // Display area for showing car inventory and system messages
 
     /**
-     * Constructor: Initializes the GUI components.
+     * Constructor: Initializes the GUI components and connects to the database.
      */
     public CarManagementGUI() {
         frame = new JFrame("Car Dealership Management System");
@@ -79,7 +79,9 @@ public class CarManagementGUI {
         frame.add(panel, BorderLayout.SOUTH);
         frame.setVisible(true);
     }
-
+    /**
+     * Allows user to load a different SQLite database using a file chooser.
+     */
     private void loadCarsFromFile() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Select SQLite Database File");
@@ -96,7 +98,9 @@ public class CarManagementGUI {
             outputArea.append("File selection cancelled.\n");
         }
     }
-
+    /**
+     * Prompts user to enter car details and adds the car to the database.
+     */
     private void addCar() {
         try {
             int year = Integer.parseInt(JOptionPane.showInputDialog("Enter Year:"));
@@ -113,7 +117,9 @@ public class CarManagementGUI {
             outputArea.append("Invalid number input.\n");
         }
     }
-
+    /**
+     * Removes a car from the inventory using its ID.
+     */
     private void removeCar() {
         try {
             int id = Integer.parseInt(JOptionPane.showInputDialog("Enter Car ID to remove:"));
@@ -126,7 +132,9 @@ public class CarManagementGUI {
             outputArea.append("Invalid ID.\n");
         }
     }
-
+    /**
+     * Updates the price and features of an existing car.
+     */
     private void updateCar() {
         try {
             int id = Integer.parseInt(JOptionPane.showInputDialog("Enter Car ID to update:"));
@@ -141,7 +149,9 @@ public class CarManagementGUI {
             outputArea.append("Invalid input.\n");
         }
     }
-
+    /**
+     * Displays the list of cars currently in the inventory.
+     */
     private void viewCars() {
         List<String> cars = dbHelper.getAllCars();
         outputArea.setText("");
@@ -153,7 +163,10 @@ public class CarManagementGUI {
             }
         }
     }
-
+    /**
+     * Allows the user to purchase a car by entering its ID.
+     * Calculates tax and discount and confirms purchase.
+     */
     private void buyCar() {
         if (dbHelper == null) {
             JOptionPane.showMessageDialog(frame, "No database connected.");
@@ -173,7 +186,7 @@ public class CarManagementGUI {
     }
 
     /**
-     * Handles exiting the application gracefully.
+     * Exits the application and disconnects from the database.
      */
     private void exitApplication() {
         int confirm = JOptionPane.showConfirmDialog(frame, "Are you sure you want to exit?", "Exit Confirmation", JOptionPane.YES_NO_OPTION);
@@ -184,7 +197,9 @@ public class CarManagementGUI {
     }
 
     /**
-     * Main method to launch the application.
+     * Main method to launch the GUI application.
+     *
+     * @param args command-line arguments (not used)
      */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(CarManagementGUI::new);
